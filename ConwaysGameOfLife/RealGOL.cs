@@ -5,15 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 
+
 namespace ConwaysGameOfLife
 {
     public class RealGOL : Board
     {    
         private Cell[,] cells; //could set this to public and not need the getter and setter
-        private int numberTrue;
-        private int height;
-        private int width;
-        private bool result;
+        private Cell[,] initialBoard;
+        private Cell[,] convertedBoard;
 
         public int Height { get; set; }
         public int Width { get; set; }
@@ -79,10 +78,13 @@ namespace ConwaysGameOfLife
     {
         throw new NotImplementedException();
     }
+    public void Tick ()
+        {
+            OldTick(cells);
+        }
 
-    public void Tick(RealGOL initialBoard)
+    public Cell[,] OldTick(Cell[,] initialBoard)
     {
-            RealGOL convertedBoard = new RealGOL();
             convertedBoard = RulesToBoard(initialBoard);
             return convertedBoard;
         }
@@ -104,39 +106,23 @@ namespace ConwaysGameOfLife
         }
     }
 
-        public RealGOL RulesToBoard(RealGOL initialBoard)
+        public Cell[,] RulesToBoard(Cell[,] initialBoard)
         {
-            //need to run ApplyRules to every cell and store the results into convertedBoard
-            RealGOL convertedBoard = new RealGOL();
-            Cell[,] board = initialBoard.Board();
+            //need to run ApplyRules to every cell and store the results into convertedBoard  
+            Cell[,] gameBoard = initialBoard;
 
-            foreach (Cell i in board)
+            foreach (Cell i in gameBoard)
             {
-                int row = 0;
-                int column = 0;
+                
                 bool currentCellBool = i.IsAlive;
-                int numberofNeighbors = i.Checkneighbors(row, column);
+                int numberofNeighbors = i.Checkneighbors(i.X, i.Y);
                 bool newCellState = ApplyRules(currentCellBool, numberofNeighbors);
-                convertedBoard.SetBoard(row, column, newCellState);
-
-
-
+                SetBoard(i.X, i.Y, newCellState);
             }
-            //int row = 0;
-            //int column = 0;
-            //Cell[,] board = initialBoard.Board();
-            //Cell currentCell = board[row, column];
-            //bool currentCellBool = currentCell.IsAlive;
-
-            //foreach (Cell i in board)
-            //{
-            //    int liveNeighbors = board.CheckNeighbors(row, column);
-            //    Cell rulesApplied = ApplyRules(currentCellBool, liveNeighbors);
-            //    bool newCellState = rulesApplied.
-            //    //somehow add result to convertedBoard
-            //    convertedBoard.SetBoard(row, column, newCellState);
-            //}
+            
             return convertedBoard;
         }
+
+        
     }
 }

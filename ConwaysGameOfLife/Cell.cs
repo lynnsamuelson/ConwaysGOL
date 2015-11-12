@@ -9,6 +9,9 @@ namespace ConwaysGameOfLife
         private int height;
         private int width;
 
+        public int X { get; set; }
+        public int Y { get; set; }
+
         public bool IsAlive { get; set; }
         public Cell()
         {
