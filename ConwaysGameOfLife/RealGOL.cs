@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ConwaysGameOfLife
 {
     public class RealGOL : Board
@@ -79,10 +80,12 @@ namespace ConwaysGameOfLife
         throw new NotImplementedException();
     }
 
-    public void Tick()
+    public void Tick(RealGOL initialBoard)
     {
-        throw new NotImplementedException();
-    }
+            RealGOL convertedBoard = new RealGOL();
+            convertedBoard = RulesToBoard(initialBoard);
+            return convertedBoard;
+        }
 
     public bool ApplyRules(bool AliveOrDead,  int liveNeighbors)
     {
@@ -103,9 +106,36 @@ namespace ConwaysGameOfLife
 
         public RealGOL RulesToBoard(RealGOL initialBoard)
         {
-            RealGOL convertedBoard = new RealGOL();
             //need to run ApplyRules to every cell and store the results into convertedBoard
-            initialBoard = convertedBoard;
+            RealGOL convertedBoard = new RealGOL();
+            Cell[,] board = initialBoard.Board();
+
+            foreach (Cell i in board)
+            {
+                int row = 0;
+                int column = 0;
+                bool currentCellBool = i.IsAlive;
+                int numberofNeighbors = i.Checkneighbors(row, column);
+                bool newCellState = ApplyRules(currentCellBool, numberofNeighbors);
+                convertedBoard.SetBoard(row, column, newCellState);
+
+
+
+            }
+            //int row = 0;
+            //int column = 0;
+            //Cell[,] board = initialBoard.Board();
+            //Cell currentCell = board[row, column];
+            //bool currentCellBool = currentCell.IsAlive;
+
+            //foreach (Cell i in board)
+            //{
+            //    int liveNeighbors = board.CheckNeighbors(row, column);
+            //    Cell rulesApplied = ApplyRules(currentCellBool, liveNeighbors);
+            //    bool newCellState = rulesApplied.
+            //    //somehow add result to convertedBoard
+            //    convertedBoard.SetBoard(row, column, newCellState);
+            //}
             return convertedBoard;
         }
     }

@@ -223,7 +223,7 @@ namespace UnitTests
             my_world.SetBoard(1, 2, true);
             my_world.SetBoard(2, 2, true);
             my_world.SetBoard(2, 3, true);
-            RealGOL tickedBoard = my_world.RulesToBoard();
+            RealGOL tickedBoard = my_world.RulesToBoard(my_world);
             RealGOL expectedBoard = new RealGOL(width, height);
             expectedBoard.SetBoard(2, 1, true);
             expectedBoard.SetBoard(2, 2, true);
