@@ -47,30 +47,34 @@ namespace ConwaysGameOfLife
        
         public int CheckNeighbors(int row, int column)
         {
-            Cell currentCell = cells[row, column];
-            bool currentCellBool = currentCell.IsAlive;
-            bool topLeft = cells[row + 1, column - 1].IsAlive;
-            bool topTop = cells[row + 1, column].IsAlive;
-            bool topRight = cells[row + 1, column + 1].IsAlive;
-            bool left = cells[row, column -1].IsAlive;
-            bool right = cells[row, column + 1].IsAlive;
-            bool bottomLeft = cells[row - 1, column - 1].IsAlive;
-            bool bottomBottom = cells[row - 1, column].IsAlive;
-            bool bottomRight = cells[row - 1, column + 1].IsAlive;
             int trueNeighbors = 0;
 
-            List<bool> all = new List<bool>
+            Cell currentCell = cells[row, column];
+            bool currentCellBool = currentCell.IsAlive;
+            if ((row - 1) >= 0 && (row - 1) <= this.Width && (column - 1) >=0 && (column - 1) <= this.Height )
             {
-                topLeft, topTop, topRight, left, right, bottomLeft, bottomBottom, bottomRight
-            };
+                bool topLeft = cells[row + 1, column - 1].IsAlive;
+                bool topTop = cells[row + 1, column].IsAlive;
+                bool topRight = cells[row + 1, column + 1].IsAlive;
+                bool left = cells[row, column -1].IsAlive;
+                bool right = cells[row, column + 1].IsAlive;
+                bool bottomLeft = cells[row - 1, column - 1].IsAlive;
+                bool bottomBottom = cells[row - 1, column].IsAlive;
+                bool bottomRight = cells[row - 1, column + 1].IsAlive;
 
-            for (int k = 0; k < all.Count(); k++)
-            {
-                if (all[k] == true)
+                List<bool> all = new List<bool>
                 {
-                    trueNeighbors++;
+                    topLeft, topTop, topRight, left, right, bottomLeft, bottomBottom, bottomRight
+                };
+
+                for (int k = 0; k < all.Count(); k++)
+                {
+                    if (all[k] == true)
+                    {
+                        trueNeighbors++;
+                    }
                 }
-            }
+            } 
             return trueNeighbors;
         }
 
@@ -110,14 +114,15 @@ namespace ConwaysGameOfLife
         {
             Cell[,] gameBoard = initialBoard;
             
+            
             foreach (Cell i in gameBoard)
             {
                 bool currentCellBool = i.IsAlive;
-                int numberofNeighbors = i.Checkneighbors(i.X, i.Y);
+                int numberofNeighbors = CheckNeighbors(i.X, i.Y);
                 bool newCellState = ApplyRules(currentCellBool, numberofNeighbors);
                 SetBoard(i.X, i.Y, newCellState);
             }
-            return null;
+            return gameBoard;
         }
     }
 }

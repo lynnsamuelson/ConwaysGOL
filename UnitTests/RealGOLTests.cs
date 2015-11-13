@@ -220,17 +220,17 @@ namespace UnitTests
             int height = 5;
             int width = 5;
             RealGOL my_world = new RealGOL(width, height);
-            my_world.SetBoard(1, 2, true);
+            my_world.SetBoard(2, 1, true);
             my_world.SetBoard(2, 2, true);
             my_world.SetBoard(2, 3, true);
             Cell[,] my_worldBoard = my_world.Board();
             Cell[,] tickedBoard = my_world.RulesToBoard(my_worldBoard);
             RealGOL expectedBoard = new RealGOL(width, height);
-            expectedBoard.SetBoard(2, 1, true);
+            expectedBoard.SetBoard(1, 2, true);
             expectedBoard.SetBoard(2, 2, true);
-            expectedBoard.SetBoard(2, 3, true);
+            expectedBoard.SetBoard(3, 2, true);
             Cell[,] expected = expectedBoard.Board();
-            Assert.AreEqual(expected, tickedBoard);
+            CollectionAssert.AreEqual(expected, tickedBoard);
         }
 
     }
