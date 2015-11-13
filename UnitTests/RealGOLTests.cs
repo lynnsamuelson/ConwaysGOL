@@ -224,12 +224,14 @@ namespace UnitTests
             my_world.SetBoard(2, 2, true);
             my_world.SetBoard(2, 3, true);
             Cell[,] my_worldBoard = my_world.Board();
-            RealGOL tickedBoard = my_world.RulesToBoard(my_world);
+            Cell[,] tickedBoard = my_world.RulesToBoard(my_worldBoard);
             RealGOL expectedBoard = new RealGOL(width, height);
             expectedBoard.SetBoard(2, 1, true);
             expectedBoard.SetBoard(2, 2, true);
             expectedBoard.SetBoard(2, 3, true);
-            Assert.AreEqual(expectedBoard, tickedBoard);
+            Cell[,] expected = expectedBoard.Board();
+            Assert.AreEqual(expected, tickedBoard);
         }
+
     }
 }

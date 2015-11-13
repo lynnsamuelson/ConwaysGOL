@@ -108,21 +108,16 @@ namespace ConwaysGameOfLife
 
         public Cell[,] RulesToBoard(Cell[,] initialBoard)
         {
-            //need to run ApplyRules to every cell and store the results into convertedBoard  
             Cell[,] gameBoard = initialBoard;
-
+            
             foreach (Cell i in gameBoard)
             {
-                
                 bool currentCellBool = i.IsAlive;
                 int numberofNeighbors = i.Checkneighbors(i.X, i.Y);
                 bool newCellState = ApplyRules(currentCellBool, numberofNeighbors);
                 SetBoard(i.X, i.Y, newCellState);
             }
-            
-            return convertedBoard;
+            return null;
         }
-
-        
     }
 }
